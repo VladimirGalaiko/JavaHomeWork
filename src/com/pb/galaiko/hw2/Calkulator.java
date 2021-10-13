@@ -17,7 +17,7 @@ public class Calkulator {
         System.out.print("Введите второе число: ");
         y = scan.nextInt();
 
-        boolean gud = true;
+
         switch (simbol)  {
             case "+":
                 res = x + y;
