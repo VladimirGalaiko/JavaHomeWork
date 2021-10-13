@@ -17,7 +17,7 @@ public class Calkulator {
         System.out.print("Введите второе число: ");
         y = scan.nextInt();
 
-        boolean correct = true;
+        boolean gud = true;
         switch (simbol)  {
             case "+":
                 res = x + y; break;
@@ -31,8 +31,9 @@ public class Calkulator {
                 res = x / y; break;
             default:
                 res = 0;
-                correct = false;
+                System.out.println("Введен неверный символ");
+
         }
-        System.out.print(correct ? "Ответ:" + res : "Неверная операция!");
+        System.out.println("Ответ:" + res);
     }
 }
