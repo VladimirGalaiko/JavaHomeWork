@@ -10,7 +10,7 @@ public class Calkulator {
         int res;
         String simbol;
 
-        System.out.print("Введите операцию: ");
+        System.out.print("Введите операцию:(+,-,*,/): ");
         simbol = scan.next();
         System.out.print("Введите первое число: ");
         x = scan.nextInt();
@@ -29,7 +29,7 @@ public class Calkulator {
                 if(y == 0)
                     System.out.print("Делить на ноль нельзя!");
                 res = x / y; break;
-                default:
+            default:
                 res = 0;
                 correct = false;
         }
