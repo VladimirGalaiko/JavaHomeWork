@@ -8,36 +8,37 @@ public class Calkulator {
         int x;
         int y;
         int res;
-        String simbol;
+        char oper;
 
         System.out.print("Введите операцию:(+,-,*,/): ");
-        simbol = scan.next();
+        oper = scan.next().charAt(0);
         System.out.print("Введите первое число: ");
         x = scan.nextInt();
         System.out.print("Введите второе число: ");
         y = scan.nextInt();
 
+        boolean correct = true;
 
-        switch (simbol)  {
-            case "+":
+        switch (oper)  {
+            case '+':
                 res = x + y;
                 break;
-            case "-":
+            case '-':
                 res = x - y;
                 break;
-            case "*":
+            case '*':
                 res = x * y;
                 break;
-            case "/":
+            case '/':
                 if(y == 0)
                     System.out.print("Делить на ноль нельзя!");
                 res = x / y;
                 break;
             default:
                 res = 0;
-                System.out.println("Введен неверный символ");
+                correct = false;
 
         }
-        System.out.println("Ответ:" + res);
+        System.out.println(correct ? "Ответ:" + res: " не верная операция ");
     }
 }
