@@ -20,15 +20,19 @@ public class Calkulator {
         boolean gud = true;
         switch (simbol)  {
             case "+":
-                res = x + y; break;
+                res = x + y;
+                break;
             case "-":
-                res = x - y; break;
+                res = x - y;
+                break;
             case "*":
-                res = x * y; break;
+                res = x * y;
+                break;
             case "/":
                 if(y == 0)
                     System.out.print("Делить на ноль нельзя!");
-                res = x / y; break;
+                res = x / y;
+                break;
             default:
                 res = 0;
                 System.out.println("Введен неверный символ");
