@@ -9,7 +9,7 @@ public class Bingo {
         Scanner scan = new Scanner(System.in);
 
         int i = (int) (Math.random() * 100 + 1);
-         System.out.println(+i); // загаданное число
+        //  System.out.println(+i); // загаданное число
         int counter = 0;
 
         System.out.println("Я загадал число от 0 до 100. Угадайте его. Если захотите выйти из игры введите: 101 ");
