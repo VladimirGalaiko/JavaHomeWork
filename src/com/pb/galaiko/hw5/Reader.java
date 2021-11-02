@@ -21,7 +21,7 @@ public class Reader {
 
 
     public void takeBook(int kolknig) {
-        System.out.println(fio +"." + " Взял книги, колличество : " + kolknig);
+        System.out.println(fio + "." + " Взял книги, колличество : " + kolknig);
     }
 
     public void takeBook(Book... takedBooks) {
@@ -36,14 +36,14 @@ public class Reader {
     }
 
     public void returnBook(int kolknig) {
-        System.out.println(fio +"." + " Вернул книги, колличество : " + kolknig);
+        System.out.println(fio + "." + " Вернул книги, колличество : " + kolknig);
     }
 
     public void returnBook(Book... returnBook) {
-        System.out.println(fio +"."+ " Вернул книги : " + returnBook[0].name +
+        System.out.println(fio + "." + " Вернул книги : " + returnBook[0].name +
                 ", " + returnBook[1].name + ", " + returnBook[2].name + ".");
 
-        System.out.println(fio +"." + " Вернул книги : ");
+        System.out.println(fio + "." + " Вернул книги : ");
         for (int i = 0; i < 3; i++) {
             System.out.println(returnBook[i].name + "(" + returnBook[i].avtor +
                     ", " + returnBook[i].god + ").");
