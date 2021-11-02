@@ -28,7 +28,7 @@ public class Library {
         for (Reader readi : readers) {
             System.out.println(readi.getPosetiteli());
         }
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             readers[i].takeBook(3);
             readers[i].takeBook(books);
             readers[i].returnBook(3);
@@ -36,7 +36,7 @@ public class Library {
         }
 
     }
- }
+}
 
 
 
