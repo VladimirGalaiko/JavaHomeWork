@@ -41,7 +41,25 @@ public class Dog extends Animal {
         System.out.println("Єто " + name + "-" + "ест");
     }
 
+    @Override
+    public String toString() {
+        return "Собака, " +
+                "имя: " + name + " " + "Отличительная черта " +
+                "-  " + chain + " Любимая еда: " + getFood() + ". " + "Локация: " + getLocation() ;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dog dog = (Dog) o;
+        return Objects.equals(chain, dog.chain) && Objects.equals(name, dog.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(chain, name);
+    }
 }
 
 
