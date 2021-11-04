@@ -46,7 +46,7 @@ public class Cat extends Animal {
     public String toString() {
         return "Кошка, " +
                 "имя: " + name + " " + "Отличительная черта " +
-                "- одет  " + collar + " Любимая еда: " + getFood() + ". " + "Локация: " + getLocation() ;
+                "- одет  " + collar + " Любимая еда: " + getFood() + ". " + "Локация: " + getLocation();
     }
 
     @Override

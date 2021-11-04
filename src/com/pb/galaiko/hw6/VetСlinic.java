@@ -15,15 +15,15 @@ public class VetСlinic {
         System.out.println("Наблюдаемыем животные : ");
 
         for (int i = 0; i < 3; i++) {
-        animal[i].toString();
+            animal[i].toString();
             System.out.println(animal[i]);
         }
 
         System.out.println();
 
         for (int i = 0; i < 3; i++) {
-        animal[i].makeNoise();
-        animal[i].eat();
+            animal[i].makeNoise();
+            animal[i].eat();
         }
 
         System.out.println();
@@ -37,7 +37,6 @@ public class VetСlinic {
             ((Veterinarian) obj).treatAnimal(animal[i]);
 
         }
-
     }
 }
 
