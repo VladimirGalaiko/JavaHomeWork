@@ -35,9 +35,7 @@ public class VetСlinic {
         if (obj instanceof Veterinarian) ;
         for (int i = 0; i < 3; i++) {
             ((Veterinarian) obj).treatAnimal(animal[i]);
-
         }
-
     }
 }
 

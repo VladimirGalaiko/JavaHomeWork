@@ -28,16 +28,16 @@ public class Animal {
     }
 
     public void makeNoise() {
-        System.out.println("Такое-то животное шумит");
+        System.out.println("Какое-то животное шумит");
     }
 
     public void eat() {
-        System.out.println("Такое-то животное ест");
+        System.out.println("Какое-то животное ест");
 
     }
 
     public void sleep() {
-        System.out.println("Такое-то животное спит");
+        System.out.println("Какое-то животное спит");
     }
 
 }
