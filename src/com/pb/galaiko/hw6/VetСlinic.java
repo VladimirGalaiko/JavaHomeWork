@@ -29,7 +29,7 @@ public class VetСlinic {
         System.out.println();
 
         Class vetClazz = Class.forName("com.pb.galaiko.hw6.Veterinarian");
-        Constructor constr = vetClazz.getConstructor(new Class[]{});
+        Constructor constr = vetClazz.getConstructor();
         Object obj = constr.newInstance();
 
         if (obj instanceof Veterinarian) ;
