@@ -37,6 +37,7 @@ public class VetСlinic {
             ((Veterinarian) obj).treatAnimal(animal[i]);
 
         }
+
     }
 }
 
