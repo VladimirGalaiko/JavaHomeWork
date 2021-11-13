@@ -1,5 +1,7 @@
 package com.pb.galaiko.hw6;
 
+import java.util.Objects;
+
 public class Animal {
 
     private String food;
@@ -40,5 +42,17 @@ public class Animal {
         System.out.println("Какое-то животное спит");
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Animal animal = (Animal) o;
+        return Objects.equals(food, animal.food) && Objects.equals(location, animal.location);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(food, location);
+    }
 }
 

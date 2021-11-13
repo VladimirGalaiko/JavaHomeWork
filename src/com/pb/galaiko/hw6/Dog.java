@@ -52,13 +52,14 @@ public class Dog extends Animal {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Dog dog = (Dog) o;
         return Objects.equals(chain, dog.chain) && Objects.equals(name, dog.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chain, name);
+        return Objects.hash(super.hashCode(), chain, name);
     }
 }
 
