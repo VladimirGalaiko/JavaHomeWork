@@ -26,30 +26,16 @@ public class Atelier {
 
     public static void dressMan(Clothes[] clothes) {
         for (Clothes i : clothes) {
-            if (i instanceof Tie) {
-                Tie tie = (Tie) i;
-                tie.dressMan();
-            } else if (i instanceof Pants) {
-                Pants pants = (Pants) i;
-                pants.dressMan();
-            } else if (i instanceof Tshirt) {
-                Tshirt tshirt = (Tshirt) i;
-                tshirt.dressMan();
+            if (i instanceof ManClothes){
+                ((ManClothes) i).dressMan();
             }
         }
     }
 
     public static void dressWomen(Clothes[] clothes) {
         for (Clothes i : clothes) {
-            if (i instanceof Skirt) {
-                Skirt skirt = (Skirt) i;
-                skirt.dressWomen();
-            } else if (i instanceof Pants) {
-                Pants pants = (Pants) i;
-                pants.dressWomen();
-            } else if (i instanceof Tshirt) {
-                Tshirt tshirt = (Tshirt) i;
-                tshirt.dressWomen();
+            if (i instanceof WomenClothes){
+                ((WomenClothes) i).dressWomen();
             }
         }
     }
