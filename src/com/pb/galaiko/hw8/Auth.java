@@ -1,15 +1,16 @@
 package com.pb.galaiko.hw8;
 
-public class Auth {
-    private String login;
-    private String password;
-    // String confirmPassword;
+import java.util.Scanner;
 
- public Auth(String login, String password) {
-           this.login = login;
-           this.password= password;
-       //this.confirmPassword = confirmPassword;
-    }
+public class Auth {
+    private static String login;
+    private static String password;
+    private String confirmPassword;
+    private String login2;
+    private String password2;
+
+
+
     public String getLogin() {
         return login;
     }
@@ -26,20 +27,61 @@ public class Auth {
         this.password = password;
     }
 
-    //String login, String password, String confirmPassword
-    public void signUp() throws WrongLoginException, WrongPasswordException {
-        if (login.length() < 5 || login.length() > 20) {
-            throw new WrongLoginException("Логин не корректный");
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getLogin2() {
+        return login2;
+    }
+
+    public void setLogin2(String login2) {
+        this.login2 = login2;
+    }
+
+    public String getPassword2() {
+        return password2;
+    }
+
+    public void setPassword2(String password2) {
+        this.password2 = password2;
+    }
+
+    public void signUp(String login, String password, String confirmPassword) throws WrongLoginException, WrongPasswordException {
+        if (login.length() < 5 && login.length() > 20 ) {
+            throw new WrongLoginException();
         }
         if (password.length() < 5) {
-            throw new WrongPasswordException("Пароль не корректный");
+            throw new WrongPasswordException();
         }
-        String confirmPassword = password;
-        if (!password.equals(confirmPassword)) {
-                throw new WrongPasswordException("Пароль не совпадает");
-             }
+        if (confirmPassword.equals(password)) {
+            System.out.println("Поздравляем вы успешно зарегистрировались");
+        } else {
+            System.out.println("Пароль  не совпадает - попробуйте еще раз");
         }
     }
+
+    public void signIn(String login2, String password2) throws WrongLoginException, NullPointerException {
+        if (login.equals(login2) &&  password.equals(password2)) {
+
+            System.out.println("Вы вошли на сайт!!!");
+        }
+        else {
+            throw new WrongLoginException();
+        }
+
+    }
+}
+//|| getPassword().equals(password)
+
+
+
+
+
 
 
 
