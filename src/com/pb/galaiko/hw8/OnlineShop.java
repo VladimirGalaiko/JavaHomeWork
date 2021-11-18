@@ -4,22 +4,24 @@ package com.pb.galaiko.hw8;
 import java.util.Scanner;
 
 
+
 public class OnlineShop {
     public static void main(String[] args) throws WrongLoginException, WrongPasswordException {
         Scanner sc = new Scanner(System.in);
         Auth user = new Auth();
 
     while (true) {
+        System.out.println("http : // OnlineShop. com. ua");
             System.out.println("1. Регистрация  2. Вход  3. Выход");
-            System.out.println("Сделайте выбор ....");
+            System.out.println("Сделайте выбор ...");
 
             String choice = sc.nextLine();
        switch (choice) {
                 case "1":
-                    System.out.println(" Регистрация....");
-                    System.out.println("Введите  имя пользователя:");
+                    System.out.println(" Регистрация...");
+                    System.out.println("Придумайте имя пользователя: ");
                     String login = sc.nextLine();
-                    System.out.println("Введите пароль:");
+                    System.out.println("Придумакйте пароль: ");
                     String password = sc.nextLine();
                     System.out.println("Повторите пароль:");
                     String confirmPassword = sc.nextLine();
@@ -40,9 +42,9 @@ public class OnlineShop {
 
                 case "2":
 
-                    System.out.println("Введите login: ");
+                    System.out.println("Введите имя пользователя: ");
                     String login2 = sc.nextLine();
-                    System.out.println("Введите password: ");
+                    System.out.println("Введите пароль: ");
                     String password2 = sc.nextLine();
         user.setLogin2(login2);
         user.setPassword2(password2);
@@ -54,7 +56,7 @@ public class OnlineShop {
                         e1.getMesss();
                     }
                     catch (NullPointerException e3){
-                        System.out.println("Пользователь не найден!" );
+                        System.out.println("Пользователь не найден! Так как еще нет пользователя :D" );
                     }
                     break;
                 case "3":

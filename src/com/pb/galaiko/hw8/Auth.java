@@ -1,6 +1,7 @@
 package com.pb.galaiko.hw8;
 
-import java.util.Scanner;
+
+import java.util.regex.Pattern;
 
 public class Auth {
     private static String login;
@@ -52,16 +53,16 @@ public class Auth {
     }
 
     public void signUp(String login, String password, String confirmPassword) throws WrongLoginException, WrongPasswordException {
-        if (login.length() < 5 && login.length() > 20 ) {
+        if (!Pattern.matches("[a-zA-Z0-9]{5,20}",login)) {
             throw new WrongLoginException();
         }
-        if (password.length() < 5) {
+        if (!Pattern.matches("[a-zA-Z0-9_]{5,}",password)) {
             throw new WrongPasswordException();
         }
         if (confirmPassword.equals(password)) {
-            System.out.println("Поздравляем вы успешно зарегистрировались");
+            System.out.println("Поздравляем вы успешно зарегистрировались на сайте : ");
         } else {
-            System.out.println("Пароль  не совпадает - попробуйте еще раз");
+            System.out.println("Пароли  не совпадает - попробуйте еще раз");
         }
     }
 
