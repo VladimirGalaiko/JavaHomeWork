@@ -1,8 +1,11 @@
 package com.pb.galaiko.hw9;
 
-
-
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -13,17 +16,31 @@ public class FileNumbers {
     public static void main(String[] args) throws IOException {
 
         createNumbersFile();
+
+        System.out.println("Вывод на консоль созданного файла заполненного случайными целыми числами от 1 до 99 :  ");
+        Path path = Paths.get("files/numbers.txt");
+        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+        for (String s : lines) {
+            System.out.print(" " + s + "\n");
+        }
+
+        System.out.println();
+
         createOddNumbersFile();
 
+        System.out.println("Вывод, с заменой четных чисел на (0): ");
+        Path path2 = Paths.get("files/odd-numbers.txt");
+        List<String> lines2 = Files.readAllLines(path2, StandardCharsets.UTF_8);
+        for (String s : lines2) {
+            System.out.print(" " + s + "\n");
+        }
     }
 
 
     private static void createNumbersFile() {
 
         try (Writer wr = new FileWriter("files/numbers.txt")) {
-            int line;
-            int i;
-            int j;
+            int line, i, j;
             Random r = new Random();
             line = r.nextInt(100);
             for (i = 0; i < 10; i++) {
@@ -34,47 +51,32 @@ public class FileNumbers {
                 wr.write("\n");
             }
         } catch (IOException e) {
-            System.out.println("ошибка");
+            System.out.println("Ошибка...");
         }
     }
 
     private static void createOddNumbersFile() {
-//        Path path = Paths.get("files/numbers.txt");
-//        List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
-//        for (String s : lines) {
-//            System.out.print(" " + s + "\n");
-        try (Scanner in = new Scanner(new File("files/numbers.txt")); // "try с ресурсами"
+
+        try (Scanner in = new Scanner(new File("files/numbers.txt"));
              PrintWriter out = new PrintWriter(new FileWriter("files/odd-numbers.txt"))) {
-            System.out.println("Вывод, с учетом замены целых четных чисел на '0':");
+
             while (in.hasNextLine()) {
-                Scanner line = new Scanner(in.nextLine()); // Одна строка файла
-                while (line.hasNextInt()) {             // Разберем ее на числа
-                    int data = line.nextInt();          // Очередное число
-                    if (data % 2 == 0) {                // Если чётное
-                        System.out.format("%d -> 0, ", data); // Чтоб было видно, что делается
-                        data = 0;                       // Заменим его нулём
+                Scanner line = new Scanner(in.nextLine());
+                while (line.hasNext()) {
+                    int data = line.nextInt();
+                    if (data % 2 == 0) {
+                        data = 0;
                     } else
-                        System.out.print(data + ", ");  // Чтоб было видно, что делается
-                    System.out.print(data + " ");
+                        String.format("");
+                        out.print(data + " ");
                 }
-                System.out.println();                  // Строка закончена -- перенос строки в вых. файл
-                System.out.println();                  // и на экране
+                out.println();
             }
-        } catch (IOException x) {
-            System.out.println("Ошибка: " + x);
+        } catch (IOException e) {
+            System.out.println("Ошибка: " + e);
         }
     }
 }
-//        try (Reader wr = new FileReader("files/numbers.txt");
-//             Writer wr2 = new FileWriter("files/odd-numbers.txt")) {
-//
-//                while ((c = wr.read()) != -1)
-//                wr2.write(c);
-//
-//            } catch(IOException e){
-//                e.getStackTrace();
-//            }
-
 
 
 
