@@ -57,7 +57,7 @@ public class FileNumbers {
 
     private static void createOddNumbersFile() {
 
-        try (Scanner in = new Scanner(new File("files/numbers.txt"));
+        try (Scanner in = new Scanner(new File("files/numbers.txt")); // "try с ресурсами"
              PrintWriter out = new PrintWriter(new FileWriter("files/odd-numbers.txt"))) {
 
             while (in.hasNextLine()) {
@@ -68,7 +68,7 @@ public class FileNumbers {
                         data = 0;
                     } else
                         String.format("");
-                        out.print(data + " ");
+                    out.print(data + " ");
                 }
                 out.println();
             }
@@ -77,6 +77,3 @@ public class FileNumbers {
         }
     }
 }
-
-
-
