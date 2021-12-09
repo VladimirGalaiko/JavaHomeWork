@@ -1,17 +1,15 @@
 package com.pb.galaiko.hw10;
 
 
-
-
 public class NumBox<T extends Number> {
     private T[] number;
 
 
-    public NumBox(int size)  {
+    public NumBox(int size) {
         this.number = (T[]) new Number[size];
     }
 
-    public T get(int index)  {
+    public T get(int index) {
         return number[index];
     }
 

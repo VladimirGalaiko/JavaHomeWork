@@ -7,6 +7,7 @@ public class OnlineShop {
         Scanner sc = new Scanner(System.in);
         Auth user = new Auth();
 
+
         while (true) {
             System.out.println("http : // OnlineShop. com. ua");
             System.out.println();
