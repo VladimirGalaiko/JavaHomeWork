@@ -1,68 +1,63 @@
 package com.pb.galaiko.hw11;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import java.io.*;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
-    List <Person> persons = new ArrayList();
-    Scanner sc = new Scanner(System.in);
-    boolean status = true;
-    String tname;
-    String tnum;
-    Instant timestamp;// = Instant.now();;// Instant timestamp = Instant.now();
+
+public  class Main  {
+
+    static List<Person> persons = new ArrayList();
+    static Scanner sc = new Scanner(System.in);
+    static boolean status = true;
+    static String tname;
+    static String tnum;
+    static LocalDateTime  timestamp2;
 
 
-    public static void main(String[] args) throws  Exception {
-        Main phone = new Main(); // Определение объекта PhoneOperator для телефона
-        File file = new File("files/phoneBook.txt"); // Определите файл, путь в скобках
-        if (!file.exists()) {
-            // Если файл не существует, создайте новый файл
-            file.createNewFile(); // Создать новый файл
-        } else {
-            // Если файл существует, прочитайте содержимое файла
-            phone.readBooks();
-        }
-        phone.operator();
+    public  static void main(String[] args) throws Exception {
+
+        Main phone = new Main();
+         operator();
     }
 
 
-    public void operator() throws IOException {
+    public static void operator() throws IOException {
 
         while (status) {
             System.out.println("---------- Телефонная книга ----------");
-            System.out.println("  1. Новый   2. Удалить   3. Обновить   4. Запросить все   5. Сохранить   0. Выход");
+            System.out.println("  1. Новый   2. Удалить   3. Обновить   4. Запросить все   5. Сохранить  6. Загрузить 0. Выход");
             System.out.println("---------- Телефонная книга ----------");
             System.out.println("Пожалуйста, введите номер, чтобы выбрать соответствующую функцию:");
             String selected = sc.next();
             switch (selected) {
                 case "1":
-                    // Новый
                     addBook();
                     break;
                 case "2":
-                    // Удалить
-                    delete(); // Удалить из списка
+                    delete();
                     break;
                 case "3":
-                    // Обновление
                     update();
                     break;
                 case "4":
-                    // Запрашиваем все
                     findAll();
                     break;
                 case "5":
                     saveBook();
                     break;
+                case "6":
+                    loadALL();
+                    break;
                 case "0":
-                    // Выход
                     sc.close();
                     status = false;
                     break;
@@ -70,7 +65,7 @@ public class Main {
         }
     }
 
-    private void update() throws IOException {
+    private static void update() throws IOException {
 
         System.out.println("Пожалуйста, введите имя учетной записи для изменения:");
         String unam = sc.next();
@@ -79,16 +74,13 @@ public class Main {
         for (Person bk : persons) {
             if (bk.getName().equals(unam)) {
                 bk.setNum(unum);
-                bk.setTimestamp(Instant.now());
-
+                bk.setTimestamp(LocalDateTime.now());
                 System.out.println("Изменено успешно !");
             }
         }
-
     }
 
-
-    private void delete() {
+    private static void delete() {
         System.out.println("Пожалуйста, введите имя контакта для удаления:");
         String dname = sc.next();
         for (int i = 0; i < persons.size(); i++) {
@@ -102,106 +94,68 @@ public class Main {
         }
     }
 
-    private void findAll() {
+    private static void findAll() {
+        //System.out.println(persons.get(0).getClass().getName());
+
         for (Person bk : persons) {
             System.out.println(bk.toString());
+
+        }
+    }
+    private static void loadALL() {
+
+        File file = Paths.get("files/phoneBook.txt").toFile();//new File("files/phoneBook.txt");
+        if (!file.exists()) {
+
+            System.out.println("не сущ.");
+            return;
+        } else {
+
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            SimpleModule module = new SimpleModule();
+            module.addSerializer(LocalDateTime.class, new LocalDateSerializer());
+            module.addDeserializer(LocalDateTime.class, new LocalDateDeserializer());
+            mapper.registerModule(module);
+
+            try {
+
+                persons = Arrays.asList(mapper.readValue(file, Person[].class));
+
+                persons.forEach(System.out::println);
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
-    private void addBook() {
+    private static void addBook() {
 
         System.out.println("Пожалуйста, введите имя:");
         tname = sc.next();
         System.out.println("Пожалуйста, введите номер телефона:");
         tnum = sc.next();
 
-        Person bk = new Person(tname,tnum,Instant.now());  //   Instant.now()
+        Person bk = new Person(tname,tnum, LocalDateTime.now());
         persons.add(bk);
         System.out.println(bk);
         System.out.println("Успешно добавлено !");
     }
 
-    public void readBooks() {
-        // читаем информацию о файле
-        FileInputStream filein; // Поток ввода байта файла
-        try {
-            filein = new FileInputStream("files/phoneBook.txt"); // Создать объект класса FileInputStream в соответствии с путем.
-            if (filein.available() == 0) {
-                System.out.println("Содержимое телефонной книги пустое, главная страница скоро будет загружена ...");
-            } else {
-                BufferedReader br = new BufferedReader(new InputStreamReader(filein)); // InputStreamReader является агентом преобразования между потоком символов и потоком байтов, BufferedReader является потоком символов, а filein является байтом файла течь
-                String line = null;
-                Person bk = null;
-                while ((line = br.readLine()) != null) {
-                    String[] str = line.split(","); // line.split (); // Вырезать строку.
+     private static void saveBook() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(LocalDateTime.class, new LocalDateSerializer());
+        module.addDeserializer(LocalDateTime.class, new LocalDateDeserializer());
+        mapper.registerModule(module);
 
-                    bk = new Person(str[0], str[1], timestamp);
-                    persons.add(bk);
-                    bk = null;
-                }
-                filein.close(); // Закрыть поток ввода байтов
-                br.close(); // Закрыть буфер депозита
-                System.out.println("Телефонная книга загружена, вы можете выполнять операции с данными ...");
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace(); //e.printStackTrace (); предназначен для вывода информации о ненормальном стеке с указанием причины ошибки.
-        } catch (IOException e) {// является подклассом Exception, IOException - это входное или выходное исключение (т.е. исключение при записи и чтении).
+        try {
+            mapper.writeValue(Paths.get("files/phoneBook.txt").toFile(), persons);
+        }
+        catch(IOException e) {
             e.printStackTrace();
         }
-    }
-
-
-    private void saveBook() {
-        try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("files/phoneBook.txt"));
-// Может выводить построчно
-            for(Person bk:persons) {
-                bw.write(bk.getName()+","+bk.getNum()+ ","+ bk.getTimestamp());
-                bw.write("\r\n");
-            }
-            bw.flush (); // Очистить кеш
-            System.out.println ("Сохранить успешно");
-            bw.close();
-        }catch(IOException e) {
-            e.printStackTrace();
-        }
-
     }
 }
-
-//    public static void main(String[] args) throws Exception {
-
-//        ObjectMapper mapper = new ObjectMapper();
-//
-//        mapper.enable(SerializationFeature.INDENT_OUTPUT);
-//
-//        SimpleModule module = new SimpleModule();
-//        module.addSerializer(LocalDate.class, new LocalDateSerializer());
-//        module.addDeserializer(LocalDate.class, new LocalDateDeserializer());
-//        mapper.registerModule(module);
-
-
-//        List<Person> persons = Arrays.asList(
-//                new Person("Jack", "1233456", LocalDate.of(2000, 5, 2)),
-//                new Person("Vasiliy", "3234345", LocalDate.of(1990, 4, 12)),
-//                new Person("Anna", "5454545", LocalDate.of(1996, 1, 20))
-//        );
-
-
-
-
-
-
-
-//
-//    String personsJson = mapper.writeValueAsString(persons);
-//      System.out.println(personsJson);
-
-//        List persons2 = mapper.readValue(personsJson, List.class);
-//        System.out.println(persons2.get(0).getClass().getName());
-//        System.out.println(persons2);
-
- //       List<Person> persons3 = mapper.readValue(personsJson, new TypeReference<List<Person>>() {});
-//        System.out.println(persons3.get(0).getClass().getName());
-//        System.out.println(persons3);
-

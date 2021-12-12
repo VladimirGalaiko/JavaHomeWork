@@ -1,31 +1,41 @@
 package com.pb.galaiko.hw11;
 
-import java.io.Serializable;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
-public class Person implements Serializable {
-    private final static long serialVersionUID = 42;
+public class Person  {
+  // private final static long serialVersionUID = 42;
 
     private String name;
     private String num;
-    private Instant timestamp;
+    private  LocalDateTime timestamp; //transient
 
 
 
-    public Person(String name,String num,Instant timestamp) {
+     public Person() {
+
+    }
+
+    public Person(String name, String num) {
+        this.name = name;
+        this.num = num;
+    }
+
+
+    public Person(String name,String num,LocalDateTime timestamp) {
         //super();
         this.name = name;
         this.num = num;
-        this.timestamp = timestamp ;
+        this.timestamp = LocalDateTime.now();
     }
 
-    public Instant getTimestamp() {
-        return timestamp;
+    public LocalDateTime getTimestamp() {
+        return timestamp ;
     }
 
-    public void setTimestamp(Instant timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
+
 
     public String getName() {
         return name;
@@ -50,13 +60,5 @@ public class Person implements Serializable {
                 ", timestamp=" + timestamp +
                 '}';
     }
-
-
-
-//    public String toPerson() {
-//        return "Person{" +
-//                "name='" + name + '\'' +
-//                ", phone='" + num + '\'' +
-//                '}';
-    }
+}
 
