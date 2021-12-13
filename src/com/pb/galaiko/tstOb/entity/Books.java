@@ -1,13 +1,11 @@
 package com.pb.galaiko.tstOb.entity;
-import javax.swing.InputMap;
-import java.util.Iterator;
 
 public class Books {
     private String name;
     private String num;
 
     public Books(String name,String num) {
-        //super();
+        super();
         this.name = name;
         this.num = num;
     }

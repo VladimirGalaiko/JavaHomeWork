@@ -2,9 +2,9 @@ package com.pb.galaiko.hw11;
 
 import java.time.LocalDateTime;
 
-public class Person {
+public class Person  {
     private  String name;
-    private  String num;
+    private String num;
     private String adres;
     private String dateOfBirth;
     private  LocalDateTime lastEdited;

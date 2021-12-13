@@ -13,26 +13,27 @@ import java.util.*;
 
 public  class Main  {
 
-    static List<Person> persons = new ArrayList();
+     List<Person> persons = new ArrayList();
 
-    static Scanner sc = new Scanner(System.in);
-    static boolean status = true;
+     Scanner scanner = new Scanner(System.in);
+     boolean status = true;
 
-    static String tname;
-    static String tnum;
-    static String tdateOfBirth;
-    static String tadres;
-    static LocalDateTime lastEdited;
+     private String tname;
+     private String tnum;
+     private String tdateOfBirth;
+     private String tadres;
+     LocalDateTime lastEdited;
 
 
-    public  static void main(String[] args) throws Exception {
-        // Main phone = new Main();
-        loadALL();
+    public static void main(String[] args) throws Exception {
+
+        Main   phone =new Main();
+        phone.loadALL();
         System.out.println("Телефонная книга загружена...");
-         operator();
+        phone.operator();
     }
 
-    public static void operator() throws IOException {
+      public void operator()   {
 
         while (status) {
             System.out.println("---------- Телефонная книга ----------");
@@ -40,7 +41,7 @@ public  class Main  {
                     " 7. Вывести телефонную книгу 0. Выход");
             System.out.println("---------- Телефонная книга ----------");
             System.out.println("Пожалуйста, введите номер, чтобы выбрать соответствующую функцию:");
-            String selected = sc.next();
+            String selected = scanner.next();
             switch (selected) {
                 case "1":
                     addBook();
@@ -63,31 +64,16 @@ public  class Main  {
                     loadALL();
                     break;
                 case "0":
-                    sc.close();
+                    scanner.close();
                     status = false;
                     break;
             }
         }
     }
 
-    private static void update() throws IOException {
-
-        System.out.println("Пожалуйста, введите имя учетной записи для изменения:");
-        String unam = sc.next();
-        System.out.println("Введите измененный номер:");
-        String unum = sc.next();
-        for (Person i : persons) {
-            if (i.getName().equals(unam)) {
-                i.setNum(unum);
-                i.setTimestamp(LocalDateTime.now());
-                System.out.println("Изменено успешно !");
-            }
-        }
-    }
-
-    private static  void delete()   {
+    private void delete()   {
         System.out.println("Пожалуйста, введите имя контакта для удаления:");
-        String dname = sc.next();
+        String dname = scanner.next();
 
         for (int i = 0; i < persons.size(); i++) {
             Person t = persons.get(i);
@@ -98,21 +84,24 @@ public  class Main  {
                 continue;
             }
         }
+        saveBook();
     }
 
-    private static void sortName() {
+    private void sortName() {
         persons.sort(Comparator.comparing(p -> p.getName()));
+        saveBook();
           }
-    private static void sortNum(){
+    private void sortNum(){
         persons.sort(Comparator.comparing(p -> p.getNum()));
+        saveBook();
             }
 
-    private static void loadALL() {
+    public void loadALL() {
 
         File file = Paths.get("files/phoneBook.txt").toFile();
         if (!file.exists()) {
 
-            System.out.println("не сущ.");
+            System.out.println("Файла не существует.");
             return;
         }
         else {
@@ -130,24 +119,45 @@ public  class Main  {
             }
         }
     }
+    private  void update() {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Пожалуйста, введите имя учетной записи для изменения: ");
+        String unam = s.nextLine();
+        System.out.println("Введите новые номер/номера телефонов ");
+        String unum = s.nextLine();
 
-    private static void addBook() {
-        System.out.println("Пожалуйста, введите имя:");
-        tname = sc.next();
-        System.out.println("Пожалуйста, введите номер телефона:");
-        tnum = sc.next();
-        System.out.println("Пожалуйста, введите дату рождения");
-        tdateOfBirth = sc.next();
-        System.out.println("Пожалуйста, введите адрес");
-        tadres = sc.next();
+        for (Person i : persons) {
+            if (i.getName().equals(unam)) {
+                i.setNum(unum);
+                i.setTimestamp(LocalDateTime.now());
+
+                saveBook();
+                System.out.println("Изменено успешно !");
+
+            }
+        }
+    }
+
+    private void addBook() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Пожалуйста, введите имя: ");
+        tname = scan.nextLine();
+        System.out.println("Пожалуйста, введите номер телефона, можно ввести несколько: ");
+        tnum = scan.nextLine();
+        System.out.println("Пожалуйста, введите дату рождения: ");
+        tdateOfBirth = scan.nextLine();
+        System.out.println("Пожалуйста, введите адрес: ");
+        tadres = scan.nextLine();
 
         Person bk = new Person(tname,tnum,tdateOfBirth,tadres, LocalDateTime.now());
         persons.add(bk);
         System.out.println(bk);
+        saveBook();
         System.out.println("Успешно добавлено !");
+
     }
 
-    private static void saveBook() {
+    private void saveBook() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         SimpleModule module = new SimpleModule();
@@ -157,7 +167,6 @@ public  class Main  {
 
         try {
             mapper.writeValue(Paths.get("files/phoneBook.txt").toFile(), persons);
-
         }
         catch(IOException e) {
             e.printStackTrace();

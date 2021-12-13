@@ -16,7 +16,7 @@ public class PhoneOperator {
 
     public static void main(String[] args) throws IOException {
         PhoneOperator phone = new PhoneOperator(); // Определение объекта PhoneOperator для телефона
-        File file = new File("files/phoneBook.txt"); // Определите файл, путь в скобках
+        File file = new File("files/phoneBook2.txt"); // Определите файл, путь в скобках
         if (!file.exists()) {
             // Если файл не существует, создайте новый файл
             file.createNewFile(); // Создать новый файл
@@ -119,7 +119,7 @@ public class PhoneOperator {
         // читаем информацию о файле
         FileInputStream filein; // Поток ввода байта файла
         try {
-            filein = new FileInputStream("files/phoneBook.txt"); // Создать объект класса FileInputStream в соответствии с путем.
+            filein = new FileInputStream("files/phoneBook2.txt"); // Создать объект класса FileInputStream в соответствии с путем.
             if (filein.available() == 0) {
                 System.out.println("Содержимое телефонной книги пустое, главная страница скоро будет загружена ...");
             } else {
@@ -144,7 +144,7 @@ public class PhoneOperator {
     }
     private void saveBook() {
         try {
-            BufferedWriter bw = new BufferedWriter(new FileWriter("files/phoneBook.txt"));
+            BufferedWriter bw = new BufferedWriter(new FileWriter("files/phoneBook2.txt"));
 // Может выводить построчно
             for(Books book:booklist) {
                 bw.write(book.getName()+","+book.getNum());
