@@ -39,7 +39,7 @@ public  class Main {
 
         while (status) {
             System.out.println("---------- Телефонная книга ----------");
-            System.out.println("  1. Новый   2. Удалить   3. Редактирование телефонов 4. Сорт. по имени   5. Сорт. по дате редактирования  6. Поиск по имени" +
+            System.out.println("  1. Новый контакт   2. Удалить   3. Редактирование телефонов 4. Сорт. по имени   5. Сорт. по дате редактирования  6. Поиск по имени" +
                     " 7. Вывести телефонную книгу     0. Выход");
             System.out.println("---------- Телефонная книга ----------");
             System.out.println("Пожалуйста, введите номер, чтобы выбрать соответствующую функцию:");
@@ -75,36 +75,39 @@ public  class Main {
     }
 
     private void delete() {
+
         System.out.println("Пожалуйста, введите имя контакта для удаления:");
-        String dname = scanner.next();
+        String nab = scanner.next();
 
         for (int i = 0; i < persons.size(); i++) {
             Person t = persons.get(i);
-            if (t.getName().equals(dname)) {
+            if (t.getName().equals(nab)) {
                 persons.remove(t);
                 System.out.println("Успешно удалено !");
             } else {
-                continue;
+                System.out.println("Учетная запись не найдена, воспользуйтесь поиском по имени или добавте новый контакт...");
+                break;
             }
         }
         saveBook();
     }
 
     private void sortName() {
-        Comparator<Person> compareByName = Comparator.comparing(Person::getName);
-        persons.sort(compareByName);
+
+        persons.sort(Comparator.comparing(Person::getName));
         saveBook();
         persons.forEach(System.out::println);
     }
 
     private void sortLastedited() {
+
         persons.sort(Comparator.comparing(Person::getTimestamp));
         saveBook();
         persons.forEach(System.out::println);
     }
 
     private void searchName() {
-      //  System.out.println(persons.get(0).getAdres());
+
         Scanner search = new Scanner(System.in);
         System.out.println("Пожалуйста, введите имя поиска учетной записи : ");
         String unam = search.nextLine();
@@ -116,21 +119,7 @@ public  class Main {
                         .filter(p -> p.getName().startsWith(unam))
                         .collect(Collectors.toList());
 
-        System.out.println("Резултат поиска  :  " +"\n" + filtered);
-
-//        System.out.println("Результат поиска: ");
-//        persons.stream()
-//                .filter(Objects::nonNull)
-//                .filter(p -> p.getName().equals(unam))
-//                .forEach(System.out::println);
-//        System.out.println("Если имя не найдено, повторите попытку...");
-
-
-//        for (Person i : persons) {
-//            if (i.getName().equals(unam)) {
-//                System.out.println(persons.get(persons.indexOf(i)));
-//            }
-//        }
+        System.out.println("Резултат поиска  :  "+"\n" + filtered);
     }
 
     public void loadALL()   {
@@ -155,7 +144,7 @@ public  class Main {
                 ex.printStackTrace();
             }
             persons.forEach(System.out::println);
-//            System.out.println();
+//             вывод в формате json
 //            String json = mapper.writeValueAsString(persons);
 //            System.out.println(json);
         }
@@ -163,24 +152,30 @@ public  class Main {
     }
 
     private void update() {
+
         Scanner s = new Scanner(System.in);
         System.out.println("Пожалуйста, введите имя учетной записи для изменения: ");
         String unam = s.nextLine();
-        System.out.println("Введите новые номер/номера телефонов ");
+
+        System.out.println("Введите новый номер/номера телефонов ");
         String unum = s.nextLine();
 
         for (Person i : persons) {
             if (i.getName().equals(unam)) {
                 i.setNum(unum);
                 i.setTimestamp(LocalDateTime.now());
-
                 saveBook();
-                System.out.println("Изменено успешно !");
+                System.out.print("Изменено успешно !");
+                } else {
+                System.out.println("Учетная запись не найдена, воспользуйтесь поиском по имени или добавте новый контакт...");
+                break;
             }
         }
     }
 
+
     private void addBook() {
+
         Scanner scan = new Scanner(System.in);
         System.out.println("Пожалуйста, введите имя: ");
         tname = scan.nextLine();
@@ -200,6 +195,7 @@ public  class Main {
     }
 
     private void saveBook() {
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
         SimpleModule module = new SimpleModule();
@@ -214,16 +210,3 @@ public  class Main {
         }
     }
 }
-
-//        System.out.println("Пожалуйста, введите адес для поиска учетной записи : ");
-//        Scanner scanner = new Scanner(System.in);
-//        String adres = scanner.nextLine();
-//        for (Person i : persons) {
-//            Person personObjekt = i;
-//            String  dat = personObjekt.getAdres();
-//            if (adres.equals(dat))
-//                System.out.println(persons.get(persons.indexOf(i)));
-//           }
-//        System.out.println(adres);
-
-//     }
