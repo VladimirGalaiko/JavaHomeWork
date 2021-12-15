@@ -3,33 +3,27 @@ package com.pb.galaiko.hw11;
 import java.time.LocalDateTime;
 
 public class Person  {
-    private  String name;
+    private String name;
     private String num;
     private String adres;
     private String dateOfBirth;
-    private  LocalDateTime lastEdited;
+    private LocalDateTime lastEdited;
 
 
-     public Person() {
+    public Person() {
     }
-//
-//    public Person(String name, String num,String adres) {
-//        this.name = name;
-//        this.num = num;
-//    }
 
-
-    public Person(String name,String num,String dateOfBirth,String adres,LocalDateTime lastedited) {
+    public Person(String name, String num, String dateOfBirth, String adres, LocalDateTime lastedited) {
         //super();
         this.name = name;
         this.num = num;
         this.dateOfBirth = dateOfBirth;
-        this.adres =adres;
+        this.adres = adres;
         this.lastEdited = LocalDateTime.now();
     }
 
     public LocalDateTime getTimestamp() {
-        return lastEdited ;
+        return lastEdited;
     }
 
     public void setTimestamp(LocalDateTime timestamp) {
@@ -63,6 +57,7 @@ public class Person  {
     public void setName(String name) {
         this.name = name;
     }
+
     public void setNum(String num) {
         this.num = num;
     }
@@ -77,5 +72,29 @@ public class Person  {
                 ", lastedited=" + lastEdited +
                 '}';
     }
+
+
+
+
+//    @Override
+//    public int compareTo(Person o) {
+//        if (this.num.length() > o.getNum().length()) {
+//            return 1;
+//        } else if (this.num.length() > o.getNum().length()) {
+//            return -1;
+//        } else if (this.num.length() > o.getNum().length()) {
+//            return 0;
+//        }
+//    }
 }
+
+
+
+
+//    @Override
+//    public int compare(Object o1, Object o2) {
+//
+//        return 0;
+//    }
+
 
