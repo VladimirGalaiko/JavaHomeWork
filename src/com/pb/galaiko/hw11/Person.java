@@ -72,29 +72,8 @@ public class Person  {
                 ", lastedited=" + lastEdited +
                 '}';
     }
-
-
-
-
-//    @Override
-//    public int compareTo(Person o) {
-//        if (this.num.length() > o.getNum().length()) {
-//            return 1;
-//        } else if (this.num.length() > o.getNum().length()) {
-//            return -1;
-//        } else if (this.num.length() > o.getNum().length()) {
-//            return 0;
-//        }
-//    }
 }
 
 
-
-
-//    @Override
-//    public int compare(Object o1, Object o2) {
-//
-//        return 0;
-//    }
 
 
