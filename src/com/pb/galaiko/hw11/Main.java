@@ -80,14 +80,11 @@ public  class Main {
         String nab = scanner.next();
 
         for (int i = 0; i < persons.size(); i++) {
-            Person t = persons.get(i);
+           Person t = persons.get(i);
             if (t.getName().equals(nab)) {
                 persons.remove(t);
                 System.out.println("Успешно удалено !");
-            } else {
-                System.out.println("Учетная запись не найдена, воспользуйтесь поиском по имени или добавте новый контакт...");
-                break;
-            }
+             }
         }
         saveBook();
     }
@@ -108,9 +105,9 @@ public  class Main {
 
     private void searchName() {
 
-        Scanner search = new Scanner(System.in);
+        Scanner s = new Scanner(System.in);
         System.out.println("Пожалуйста, введите имя поиска учетной записи : ");
-        String unam = search.nextLine();
+        String unam = s.nextLine();
 
 
         List<Person> filtered =
@@ -153,9 +150,10 @@ public  class Main {
 
     private void update() {
 
-        Scanner s = new Scanner(System.in);
         System.out.println("Пожалуйста, введите имя учетной записи для изменения: ");
+        Scanner s = new Scanner(System.in);
         String unam = s.nextLine();
+        System.out.println(unam);
 
         System.out.println("Введите новый номер/номера телефонов ");
         String unum = s.nextLine();
@@ -164,13 +162,10 @@ public  class Main {
             if (i.getName().equals(unam)) {
                 i.setNum(unum);
                 i.setTimestamp(LocalDateTime.now());
-                saveBook();
-                System.out.print("Изменено успешно !");
-                } else {
-                System.out.println("Учетная запись не найдена, воспользуйтесь поиском по имени или добавте новый контакт...");
-                break;
+                System.out.println("Изменено успешно !");
             }
         }
+        saveBook();
     }
 
 
