@@ -153,11 +153,10 @@ public  class Main {
         System.out.println("Пожалуйста, введите имя учетной записи для изменения: ");
         Scanner s = new Scanner(System.in);
         String unam = s.nextLine();
-        System.out.println(unam);
 
         System.out.println("Введите новый номер/номера телефонов ");
         String unum = s.nextLine();
-
+        GOD:
         for (Person i : persons) {
             if (i.getName().equals(unam)) {
                 i.setNum(unum);
