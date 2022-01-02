@@ -25,7 +25,7 @@ public class ReadWriteFileTest {
         System.out.println("Read text from file \"" + path.toAbsolutePath() + "\":");
         try (BufferedReader reader = Files.newBufferedReader(path)) {
 
-            System.out.println("----------------------------------");
+            System.out.println("-------------------------------------------");
             String line;
             while((line = reader.readLine()) != null) {
                 System.out.println(line);
