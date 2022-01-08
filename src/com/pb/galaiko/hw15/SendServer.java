@@ -28,7 +28,7 @@ class SendServer extends Thread {
                 if ("exit".equalsIgnoreCase(clientMessage)) {
                     break;
                 }
-                System.out.println(clientMessage);
+                System.out.println("Клиент : " + clientMessage);
 
                 for (SendServer vr : Server.serverList) {
                     vr.send(LocalDateTime.now() +"  " + "Сервер: " + clientMessage);
@@ -48,7 +48,6 @@ class SendServer extends Thread {
             }
         }
     }
-
 
     private void send(String str) {
         try {
